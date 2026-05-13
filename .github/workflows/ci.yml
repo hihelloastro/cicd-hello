@@ -1,0 +1,29 @@
+# .github/workflows/ci.yml
+
+name: Hello World CI/CD        # 워크플로우 이름
+
+on:
+  push:
+    branches: [ main ]         # main 브랜치에 push될 때 자동 실행
+
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest     # GitHub이 제공하는 가상 서버(무료)
+
+    steps:
+      - name: 코드 내려받기
+        uses: actions/checkout@v3         # 저장소 코드를 서버로 복사
+
+      - name: Python 설치
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.12'
+
+      - name: 의존성 설치
+        run: pip install pytest           # 테스트 도구 설치
+
+      - name: 테스트 실행
+        run: pytest                       # 테스트 자동 실행
+
+      - name: 프로그램 실행 (배포 시뮬레이션)
+        run: python hello.py             # Hello, World! 출력
